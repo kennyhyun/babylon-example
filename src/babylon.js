@@ -8,11 +8,12 @@ import {
 import { generateRenderer, createObjects } from "./ball";
 import { createVector } from "./utils/vector";
 
-export const init = (canvas) => {
+export const init = (canvas, { scale = 2 } = {}) => {
   const engine = new Engine(canvas, true, {
     preserveDrawingBuffer: true,
     stencil: true,
   });
+  engine.setHardwareScalingLevel(scale);
   const scene = new Scene(engine);
 
   const cameraHeight = 5;

@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { init } from "./babylon";
 
-function App() {
+function App({ scale = 2 }) {
   const canvasRef = React.useRef(null);
   const { current: context } = React.useRef({});
   React.useEffect(() => {
@@ -12,7 +12,7 @@ function App() {
     if (canvas) {
       console.log("=============== canvas changed", canvas);
       if (!context.engine) {
-        const resp = init(canvas);
+        const resp = init(canvas, { scale });
         Object.assign(context, resp);
       }
     }
@@ -24,9 +24,8 @@ function App() {
         {({ width, height: heightInput }) => {
           const height = (width / 16) * 9;
           Object.assign(canvasRef.current, {
-            width: width,
-            height: height,
-            style: { width, height },
+            width: width * scale,
+            height: height * scale,
           });
           context.engine.resize();
         }}
