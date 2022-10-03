@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { init } from "./babylon";
 
-function App({ scale = 2 }) {
+function App({ scale = 4 }) {
   const canvasRef = React.useRef(null);
   const { current: context } = React.useRef({});
   React.useEffect(() => {
