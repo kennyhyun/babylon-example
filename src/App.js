@@ -4,15 +4,19 @@ import logo from "./logo.svg";
 import "./App.css";
 import { init } from "./babylon";
 
-function App({ scale = 4 }) {
+function App({ scale = 2 }) {
   const canvasRef = React.useRef(null);
   const { current: context } = React.useRef({});
   React.useEffect(() => {
     const { current: canvas } = canvasRef;
     if (canvas) {
-      console.log("=============== canvas changed", canvas);
+      console.log("=============== canvas changed", canvas, scale);
+      let pixelRatio = 1;
+      if (typeof window !== "undefined") {
+        pixelRatio = window.devicePixelRatio;
+      }
       if (!context.engine) {
-        const resp = init(canvas, { scale });
+        const resp = init(canvas, { scale: scale * pixelRatio });
         Object.assign(context, resp);
       }
     }
@@ -24,13 +28,13 @@ function App({ scale = 4 }) {
         {({ width, height: heightInput }) => {
           const height = (width / 16) * 9;
           Object.assign(canvasRef.current, {
-            width: width * scale,
-            height: height * scale,
+            width,
+            height,
           });
           context.engine.resize();
         }}
       </AutoSizer>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

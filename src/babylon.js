@@ -13,7 +13,7 @@ export const init = (canvas, { scale = 2 } = {}) => {
     preserveDrawingBuffer: true,
     stencil: true,
   });
-  engine.setHardwareScalingLevel(scale);
+  engine.setHardwareScalingLevel(1 / scale);
   const scene = new Scene(engine);
 
   const cameraHeight = 5;
